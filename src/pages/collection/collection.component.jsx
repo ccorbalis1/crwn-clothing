@@ -8,6 +8,7 @@ import { CollectionPageContainer, Title,
 
 
 
+
 const CollectionPage = ({ collection }) => {
     const { title, items } = collection;
     return(

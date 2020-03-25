@@ -23,7 +23,7 @@ export const CheckoutHeaderContainer = styled.div`
 `;
 
 export const HeaderBlockContainer = styled.div`
-  text-transform: capitalize;
+  text-transform: uppercase;
   width: 23%;
 
   &:last-child {
