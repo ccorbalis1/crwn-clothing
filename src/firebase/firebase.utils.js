@@ -67,7 +67,7 @@ return await batch.commit()
  --First step is walk through the array of documents and create a new 
   array of objects structured the way we want access the here in this app. */
 
-export const convertCollectionSnapshotToMap = (collections) => {
+export const convertCollectionsSnapshotToMap = (collections) => {
   const transformedCollection = collections.docs.map(doc => {
     const { title, items } = doc.data();
 
