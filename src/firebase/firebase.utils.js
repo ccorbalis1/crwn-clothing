@@ -44,16 +44,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 /* This utility was used to upload the original data for this project
 into firestore */
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-//First step is create a new collection in firestore named collectionKey
+  //First step is create a new collection in firestore named collectionKey
 
 const collectionRef = firestore.collection(collectionKey);
 console.log(collectionRef);
 
-//Do the following upload in a batch so that new collection is not 
-//corrupted if there is a failure in the upload process.
+  //Do the following upload in a batch so that new collection is not 
+  //corrupted if there is a failure in the upload process.
 const batch = firestore.batch();
-//step through each of the objects to upload and 
-//make each a new document in the created collection.
+  //step through each of the objects to upload and 
+  //make each a new document in the created collection.
 objectsToAdd.forEach(obj => {
   const newDocRef = collectionRef.doc();
   batch.set(newDocRef, obj);
@@ -78,7 +78,7 @@ export const convertCollectionsSnapshotToMap = (collections) => {
       items
     };
   });
-/* Second step is to convert the array into an object */
+    /* Second step is to convert the array into an object */
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
@@ -88,11 +88,20 @@ export const convertCollectionsSnapshotToMap = (collections) => {
 
 firebase.initializeApp(config);
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => { 
+      unsubscribe();
+      resolve(userAuth);
+      }, reject)
+    });
+  };
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account '});
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account '});
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
